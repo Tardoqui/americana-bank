@@ -15,6 +15,13 @@ router.post("/signup", async (req, res) => {
 
     const { password } = req.body;
 
+    const randomAccount =(Math.random() * 2);
+   
+
+
+    const agency = "00001";
+   
+
     if (!password) {
       return res.status(400).json({
         msg: "Password is required and must have at least 8 characters, uppercase and lowercase letters, numbers and special characters.",
@@ -27,6 +34,9 @@ router.post("/signup", async (req, res) => {
     const createdUser = await UserModel.create({
       ...req.body,
       passwordHash: passwordHash,
+      account: randomAccount,
+      bankAgency: agency,
+      bankBalance: 0.0,
     });
 
     delete createdUser._doc.passwordHash;
@@ -40,12 +50,12 @@ router.post("/signup", async (req, res) => {
 
 router.post("/login", async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { account, password } = req.body;
 
-    const user = await UserModel.findOne({ email: email });
+    const user = await UserModel.findOne({ account: account });
 
     if (!user) {
-      return res.status(400).json({ msg: "Wrong password or email." });
+      return res.status(400).json({ msg: "Wrong password or account." });
     }
 
     if (await bcrypt.compare(password, user.passwordHash)) {
@@ -57,7 +67,7 @@ router.post("/login", async (req, res) => {
         user: { ...user._doc },
       });
     } else {
-      return res.status(400).json({ msg: "Wrong password or email." });
+      return res.status(400).json({ msg: "Wrong password or account." });
     }
   } catch (error) {
     console.log(error);
