@@ -13,6 +13,13 @@ const userSchema = new Schema({
   role: { type: String, enum: ["ADMIN", "USER"], default: "USER" },
   isActive: { type: Boolean, default: true },
   disabledOn: { type: Date },
+  account: { type: String, required: true, unique: true },
+  bankAgency: { type: String},
+  bankBalance: { type: Number}
+
+
+
+
 });
 
 const UserModel = model("User", userSchema);
