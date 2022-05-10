@@ -13,10 +13,10 @@ const userSchema = new Schema({
   role: { type: String, enum: ["ADMIN", "USER"], default: "USER" },
   isActive: { type: Boolean, default: true },
   disabledOn: { type: Date },
-  account: { type: String, required: true, unique: true },
+  account: { type: Number },
   bankAgency: { type: String},
   bankBalance: { type: Number}
-
+  
 
 
 

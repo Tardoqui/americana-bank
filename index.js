@@ -10,8 +10,6 @@ app.use(cors({ origin: process.env.REACT_APP_URL }));
 const userRouter = require("./routes/user.routes");
 app.use("/user", userRouter);
 
-const transferRouter = require("./routes/transfer.routes");
-app.use("/transfer", transferRouter);
 
 app.listen(Number(process.env.PORT), () => {
   console.log("Server up at port: ", process.env.PORT);
